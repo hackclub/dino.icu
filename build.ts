@@ -5,7 +5,7 @@ import { availableParallelism } from "node:os";
 import sharp from "sharp";
 
 const REPO = "https://github.com/hackclub/dinosaurs";
-const CACHE = ".cache";
+const CACHE = "node_modules/.cache/dino-wall";
 const REPO_DIR = `${CACHE}/repo`;
 const AVIF_DIR = `${CACHE}/avif`;
 const META_FILE = `${CACHE}/meta.json`;
