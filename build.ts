@@ -148,14 +148,41 @@ const dinos: Dino[] = files
   .filter((f) => meta[f.sha] && !seen.has(f.sha) && seen.add(f.sha))
   .map((f) => ({ id: f.sha, name: prettyName(f.path), path: f.path, ...(meta[f.sha] as Meta & Look) }));
 
-await rm(DIST, { recursive: true, force: true });
-const result = await Bun.build({ entrypoints: ["./src/index.html"], outdir: DIST, minify: true });
-if (!result.success) {
-  for (const log of result.logs) console.error(log);
-  process.exit(1);
+async function bundle(entry: string, format?: "iife") {
+  const result = await Bun.build({ entrypoints: [entry], minify: true, format });
+  if (!result.success) {
+    for (const log of result.logs) console.error(log);
+    process.exit(1);
+  }
+  return result.outputs[0]!.text();
 }
+
+// Inline the CSS, JS and dino list so the first paint already has the grid,
+// instead of waiting on a script download and then a dinos.json fetch
+const css = await bundle("./src/style.css");
+const js = await bundle("./src/app.ts", "iife");
+const data = JSON.stringify(dinos).replace(/</g, "\\u003c");
+const html = new HTMLRewriter()
+  .on('link[rel="stylesheet"]', {
+    element(el) {
+      el.replace(`<style>${css}</style>`, { html: true });
+    },
+  })
+  .on("script[src]", {
+    element(el) {
+      el.replace(`<script id="dinos" type="application/json">${data}</script><script>${js}</script>`, { html: true });
+    },
+  })
+  .on("#count", {
+    element(el) {
+      el.setInnerContent(dinos.length.toLocaleString("en-US"));
+    },
+  })
+  .transform(await Bun.file("src/index.html").text());
+
+await rm(DIST, { recursive: true, force: true });
+await Bun.write(`${DIST}/index.html`, html);
 await cp(AVIF_DIR, `${DIST}/dinos`, { recursive: true });
 await cp("src/sw.js", `${DIST}/sw.js`);
-await Bun.write(`${DIST}/dinos.json`, JSON.stringify(dinos));
 console.log(`Wrote ${dinos.length} dinos to ${DIST}/`);
 console.timeEnd("build");

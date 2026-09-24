@@ -12,7 +12,6 @@ const PALETTE = [
 
 const grid = document.getElementById("grid")!;
 const sentinel = document.getElementById("sentinel")!;
-const count = document.getElementById("count")!;
 
 let dinos: Dino[] = [];
 let tiles: { el: HTMLElement; ratio: number }[] = [];
@@ -122,8 +121,7 @@ if ("serviceWorker" in navigator) {
   navigator.serviceWorker.register("./sw.js").catch(() => {});
 }
 
-dinos = shuffle(await (await fetch("./dinos.json")).json());
-count.textContent = dinos.length.toLocaleString();
+dinos = shuffle(JSON.parse(document.getElementById("dinos")!.textContent!));
 layout();
 fill();
 observer.observe(sentinel);
