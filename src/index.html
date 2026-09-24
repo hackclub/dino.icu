@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Hack Club Dinosaurs</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <header>
+      <h1>hack club dinosaurs</h1>
+      <p>
+        <span id="count">loading</span> dinos from
+        <a href="https://github.com/hackclub/dinosaurs">hackclub/dinosaurs</a>
+      </p>
+    </header>
+    <section id="faq" aria-label="questions and answers">
+      <div>
+        <h2>what's dino.icu?</h2>
+        <p>
+          dino.icu is a <a href="https://github.com/hackclub/dns">free subdomain service</a>
+          that <a href="https://hackclub.com/">hack clubbers</a> -
+          host your own personal site or project on the dino.icu domain!
+        </p>
+      </div>
+      <div>
+        <h2>where do these come from?</h2>
+        <p>
+          every dino was drawn by someone in the hack club community and added to
+          <a href="https://github.com/hackclub/dinosaurs">hackclub/dinosaurs</a> on github.
+        </p>
+      </div>
+      <div>
+        <h2>how do i add my own dino?</h2>
+        <p>
+          we have a snazzy guide at
+          <a href="https://hack.af/make-dino">hack.af/make-dino</a>, go check it out to make your own :)
+        </p>
+      </div>
+      <div>
+        <h2>how can i get in touch?</h2>
+        <p>
+          make a
+          <a href="https://github.com/hackclub/dino.icu/issues">github issue!</a> or,
+          if you're in the <a href="http://slack.hackclub.com">hack club slack</a>, you can also ask in
+          the <a href="https://hackclub.enterprise.slack.com/archives/C05SVRTCDGV">#hq-engineering</a> channel!
+        </p>
+      </div>
+    </section>
+    <main id="grid" aria-live="polite"></main>
+    <div id="sentinel" aria-hidden="true"></div>
+    <script type="module" src="./app.ts"></script>
+  </body>
+</html>

@@ -1,0 +1,148 @@
+:root {
+  --bg: #f9fafc;
+  --card: #ffffff;
+  --text: #1f2d3d;
+  --muted: #8492a6;
+  --accent: #ec3750;
+  --border: #e0e6ed;
+  --gap: 16px;
+  color-scheme: light dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #17171d;
+    --card: #252429;
+    --text: #f9fafc;
+    --muted: #8492a6;
+    --border: #3c4858;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+header {
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 48px 16px 24px;
+}
+
+h1 {
+  margin: 0;
+  font-size: clamp(2rem, 6vw, 3.5rem);
+  letter-spacing: -0.03em;
+  color: var(--accent);
+}
+
+header p {
+  margin: 8px 0 0;
+  color: var(--muted);
+}
+
+header a {
+  color: inherit;
+}
+
+#faq {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 8px var(--gap);
+  align-items: start;
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 0 16px 32px;
+}
+
+#faq h2 {
+  margin: 0;
+  font-size: 1rem;
+}
+
+#faq p {
+  margin: 4px 0 0;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+#faq a {
+  color: inherit;
+}
+
+#grid {
+  display: flex;
+  gap: var(--gap);
+  align-items: flex-start;
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 0 16px 48px;
+}
+
+.col {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap);
+}
+
+.dino {
+  display: block;
+  background: var(--paper, var(--card));
+  border-radius: 12px;
+  padding: 12px;
+  color: inherit;
+  text-decoration: none;
+  transition: transform 150ms ease-out, box-shadow 150ms ease-out;
+}
+
+.dino:hover {
+  box-shadow: 0 8px 24px rgb(0 0 0 / 0.08);
+}
+
+.dino img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.dino span {
+  display: block;
+  margin-top: 8px;
+  font-size: 0.8rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* .dino.mono = it only uses black and white */
+.dino.mono img {
+  mix-blend-mode: multiply;
+}
+
+.dino span {
+  color: rgb(0 0 0 / 0.6);
+}
+
+.dino.dark span {
+  color: rgb(255 255 255 / 0.7);
+}
+
+#sentinel {
+  height: 1px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dino {
+    transition: none;
+  }
+}
